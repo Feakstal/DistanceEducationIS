@@ -1,0 +1,783 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Discipline">
+          <Key>
+            <PropertyRef Name="DisciplineID" />
+          </Key>
+          <Property Name="DisciplineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisciplineName" Type="nvarchar" MaxLength="120" Nullable="false" />
+          <Property Name="HoursCount" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="GradeID" />
+          </Key>
+          <Property Name="GradeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GradeName" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="PupilCount" Type="tinyint" Nullable="false" />
+          <Property Name="Profile" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="LessonID" />
+          </Key>
+          <Property Name="LessonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LessonName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LessonTopic">
+          <Key>
+            <PropertyRef Name="LessonTopicID" />
+          </Key>
+          <Property Name="LessonTopicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LessonTopicName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="HoursCount" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LessonType">
+          <Key>
+            <PropertyRef Name="LessonTypeID" />
+          </Key>
+          <Property Name="LessonTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LessonTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pupil">
+          <Key>
+            <PropertyRef Name="PupilID" />
+          </Key>
+          <Property Name="PupilID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="40" />
+          <Property Name="GradeID" Type="int" Nullable="false" />
+          <Property Name="Characteristic" Type="nvarchar(max)" />
+          <Property Name="PupilStatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PupilStatus">
+          <Key>
+            <PropertyRef Name="PupilStatusID" />
+          </Key>
+          <Property Name="PupilStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PupilStatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RatingNumber" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PupilID" Type="int" Nullable="false" />
+          <Property Name="RatingID" Type="int" />
+          <Property Name="TeacherID" Type="int" Nullable="false" />
+          <Property Name="TimetableID" Type="int" Nullable="false" />
+          <Property Name="LessonTopicID" Type="int" Nullable="false" />
+          <Property Name="LessonTypeID" Type="int" Nullable="false" />
+          <Property Name="IsAttend" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="40" />
+          <Property Name="JobExperience" Type="tinyint" Nullable="false" />
+          <Property Name="DisciplineID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Timetable">
+          <Key>
+            <PropertyRef Name="TimetableID" />
+          </Key>
+          <Property Name="TimetableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GradeID" Type="int" Nullable="false" />
+          <Property Name="LessonID" Type="int" Nullable="false" />
+          <Property Name="LessonNumber" Type="tinyint" Nullable="false" />
+          <Property Name="DateToStudy" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Pupil__GradeID__47DBAE45">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+          <End Role="Pupil" Type="Self.Pupil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="Pupil">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pupil__PupilStat__48CFD27E">
+          <End Role="PupilStatus" Type="Self.PupilStatus" Multiplicity="1" />
+          <End Role="Pupil" Type="Self.Pupil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PupilStatus">
+              <PropertyRef Name="PupilStatusID" />
+            </Principal>
+            <Dependent Role="Pupil">
+              <PropertyRef Name="PupilStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__LessonTo__5165187F">
+          <End Role="LessonTopic" Type="Self.LessonTopic" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonTopic">
+              <PropertyRef Name="LessonTopicID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="LessonTopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__LessonTy__52593CB8">
+          <End Role="LessonType" Type="Self.LessonType" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonType">
+              <PropertyRef Name="LessonTypeID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="LessonTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__RatingID__4E88ABD4">
+          <End Role="Rating" Type="Self.Rating" Multiplicity="0..1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rating">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__TeacherI__4F7CD00D">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__Timetabl__5070F446">
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timetable">
+              <PropertyRef Name="TimetableID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="TimetableID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teacher__Discipl__4BAC3F29">
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="1" />
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discipline">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Teacher">
+              <PropertyRef Name="DisciplineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Timetable__Grade__440B1D61">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Timetable__Lesso__44FF419A">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="LessonID" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="LessonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_Pupil">
+          <End Role="Pupil" Type="Self.Pupil" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pupil">
+              <PropertyRef Name="PupilID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="PupilID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Discipline" EntityType="Self.Discipline" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessonTopic" EntityType="Self.LessonTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessonType" EntityType="Self.LessonType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pupil" EntityType="Self.Pupil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PupilStatus" EntityType="Self.PupilStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timetable" EntityType="Self.Timetable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Pupil__GradeID__47DBAE45" Association="Self.FK__Pupil__GradeID__47DBAE45">
+            <End Role="Grade" EntitySet="Grade" />
+            <End Role="Pupil" EntitySet="Pupil" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pupil__PupilStat__48CFD27E" Association="Self.FK__Pupil__PupilStat__48CFD27E">
+            <End Role="PupilStatus" EntitySet="PupilStatus" />
+            <End Role="Pupil" EntitySet="Pupil" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__LessonTo__5165187F" Association="Self.FK__Report__LessonTo__5165187F">
+            <End Role="LessonTopic" EntitySet="LessonTopic" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__LessonTy__52593CB8" Association="Self.FK__Report__LessonTy__52593CB8">
+            <End Role="LessonType" EntitySet="LessonType" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__RatingID__4E88ABD4" Association="Self.FK__Report__RatingID__4E88ABD4">
+            <End Role="Rating" EntitySet="Rating" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__TeacherI__4F7CD00D" Association="Self.FK__Report__TeacherI__4F7CD00D">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__Timetabl__5070F446" Association="Self.FK__Report__Timetabl__5070F446">
+            <End Role="Timetable" EntitySet="Timetable" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher__Discipl__4BAC3F29" Association="Self.FK__Teacher__Discipl__4BAC3F29">
+            <End Role="Discipline" EntitySet="Discipline" />
+            <End Role="Teacher" EntitySet="Teacher" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Timetable__Grade__440B1D61" Association="Self.FK__Timetable__Grade__440B1D61">
+            <End Role="Grade" EntitySet="Grade" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Timetable__Lesso__44FF419A" Association="Self.FK__Timetable__Lesso__44FF419A">
+            <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_Pupil" Association="Self.FK_Report_Pupil">
+            <End Role="Pupil" EntitySet="Pupil" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Discipline">
+          <Key>
+            <PropertyRef Name="DisciplineID" />
+          </Key>
+          <Property Name="DisciplineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisciplineName" Type="String" MaxLength="120" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HoursCount" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK__Teacher__Discipl__4BAC3F29" FromRole="Discipline" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="GradeID" />
+          </Key>
+          <Property Name="GradeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GradeName" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PupilCount" Type="Byte" Nullable="false" />
+          <Property Name="Profile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pupil" Relationship="Self.FK__Pupil__GradeID__47DBAE45" FromRole="Grade" ToRole="Pupil" />
+          <NavigationProperty Name="Timetable" Relationship="Self.FK__Timetable__Grade__440B1D61" FromRole="Grade" ToRole="Timetable" />
+        </EntityType>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="LessonID" />
+          </Key>
+          <Property Name="LessonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LessonName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Timetable" Relationship="Self.FK__Timetable__Lesso__44FF419A" FromRole="Lesson" ToRole="Timetable" />
+        </EntityType>
+        <EntityType Name="LessonTopic">
+          <Key>
+            <PropertyRef Name="LessonTopicID" />
+          </Key>
+          <Property Name="LessonTopicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LessonTopicName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HoursCount" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="Self.FK__Report__LessonTo__5165187F" FromRole="LessonTopic" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="LessonType">
+          <Key>
+            <PropertyRef Name="LessonTypeID" />
+          </Key>
+          <Property Name="LessonTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LessonTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="Self.FK__Report__LessonTy__52593CB8" FromRole="LessonType" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="Pupil">
+          <Key>
+            <PropertyRef Name="PupilID" />
+          </Key>
+          <Property Name="PupilID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FatherName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="GradeID" Type="Int32" Nullable="false" />
+          <Property Name="Characteristic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PupilStatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Grade" Relationship="Self.FK__Pupil__GradeID__47DBAE45" FromRole="Pupil" ToRole="Grade" />
+          <NavigationProperty Name="PupilStatus" Relationship="Self.FK__Pupil__PupilStat__48CFD27E" FromRole="Pupil" ToRole="PupilStatus" />
+          <NavigationProperty Name="Report" Relationship="Self.FK_Report_Pupil" FromRole="Pupil" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="PupilStatus">
+          <Key>
+            <PropertyRef Name="PupilStatusID" />
+          </Key>
+          <Property Name="PupilStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PupilStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pupil" Relationship="Self.FK__Pupil__PupilStat__48CFD27E" FromRole="PupilStatus" ToRole="Pupil" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RatingNumber" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="Self.FK__Report__RatingID__4E88ABD4" FromRole="Rating" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PupilID" Type="Int32" Nullable="false" />
+          <Property Name="RatingID" Type="Int32" />
+          <Property Name="TeacherID" Type="Int32" Nullable="false" />
+          <Property Name="TimetableID" Type="Int32" Nullable="false" />
+          <Property Name="LessonTopicID" Type="Int32" Nullable="false" />
+          <Property Name="LessonTypeID" Type="Int32" Nullable="false" />
+          <Property Name="IsAttend" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LessonTopic" Relationship="Self.FK__Report__LessonTo__5165187F" FromRole="Report" ToRole="LessonTopic" />
+          <NavigationProperty Name="LessonType" Relationship="Self.FK__Report__LessonTy__52593CB8" FromRole="Report" ToRole="LessonType" />
+          <NavigationProperty Name="Pupil" Relationship="Self.FK_Report_Pupil" FromRole="Report" ToRole="Pupil" />
+          <NavigationProperty Name="Rating" Relationship="Self.FK__Report__RatingID__4E88ABD4" FromRole="Report" ToRole="Rating" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK__Report__TeacherI__4F7CD00D" FromRole="Report" ToRole="Teacher" />
+          <NavigationProperty Name="Timetable" Relationship="Self.FK__Report__Timetabl__5070F446" FromRole="Report" ToRole="Timetable" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FatherName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="JobExperience" Type="Byte" Nullable="false" />
+          <Property Name="DisciplineID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK__Teacher__Discipl__4BAC3F29" FromRole="Teacher" ToRole="Discipline" />
+          <NavigationProperty Name="Report" Relationship="Self.FK__Report__TeacherI__4F7CD00D" FromRole="Teacher" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="Timetable">
+          <Key>
+            <PropertyRef Name="TimetableID" />
+          </Key>
+          <Property Name="TimetableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GradeID" Type="Int32" Nullable="false" />
+          <Property Name="LessonID" Type="Int32" Nullable="false" />
+          <Property Name="LessonNumber" Type="Byte" Nullable="false" />
+          <Property Name="DateToStudy" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Grade" Relationship="Self.FK__Timetable__Grade__440B1D61" FromRole="Timetable" ToRole="Grade" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK__Timetable__Lesso__44FF419A" FromRole="Timetable" ToRole="Lesson" />
+          <NavigationProperty Name="Report" Relationship="Self.FK__Report__Timetabl__5070F446" FromRole="Timetable" ToRole="Report" />
+        </EntityType>
+        <Association Name="FK__Teacher__Discipl__4BAC3F29">
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="1" />
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discipline">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Teacher">
+              <PropertyRef Name="DisciplineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pupil__GradeID__47DBAE45">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+          <End Role="Pupil" Type="Self.Pupil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="Pupil">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Timetable__Grade__440B1D61">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Timetable__Lesso__44FF419A">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="LessonID" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="LessonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__LessonTo__5165187F">
+          <End Role="LessonTopic" Type="Self.LessonTopic" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonTopic">
+              <PropertyRef Name="LessonTopicID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="LessonTopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__LessonTy__52593CB8">
+          <End Role="LessonType" Type="Self.LessonType" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonType">
+              <PropertyRef Name="LessonTypeID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="LessonTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pupil__PupilStat__48CFD27E">
+          <End Role="PupilStatus" Type="Self.PupilStatus" Multiplicity="1" />
+          <End Role="Pupil" Type="Self.Pupil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PupilStatus">
+              <PropertyRef Name="PupilStatusID" />
+            </Principal>
+            <Dependent Role="Pupil">
+              <PropertyRef Name="PupilStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_Pupil">
+          <End Role="Pupil" Type="Self.Pupil" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pupil">
+              <PropertyRef Name="PupilID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="PupilID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__RatingID__4E88ABD4">
+          <End Role="Rating" Type="Self.Rating" Multiplicity="0..1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rating">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__TeacherI__4F7CD00D">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Report__Timetabl__5070F446">
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timetable">
+              <PropertyRef Name="TimetableID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="TimetableID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Discipline" EntityType="Self.Discipline" />
+          <EntitySet Name="Grade" EntityType="Self.Grade" />
+          <EntitySet Name="Lesson" EntityType="Self.Lesson" />
+          <EntitySet Name="LessonTopic" EntityType="Self.LessonTopic" />
+          <EntitySet Name="LessonType" EntityType="Self.LessonType" />
+          <EntitySet Name="Pupil" EntityType="Self.Pupil" />
+          <EntitySet Name="PupilStatus" EntityType="Self.PupilStatus" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" />
+          <EntitySet Name="Report" EntityType="Self.Report" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Teacher" EntityType="Self.Teacher" />
+          <EntitySet Name="Timetable" EntityType="Self.Timetable" />
+          <AssociationSet Name="FK__Teacher__Discipl__4BAC3F29" Association="Self.FK__Teacher__Discipl__4BAC3F29">
+            <End Role="Discipline" EntitySet="Discipline" />
+            <End Role="Teacher" EntitySet="Teacher" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pupil__GradeID__47DBAE45" Association="Self.FK__Pupil__GradeID__47DBAE45">
+            <End Role="Grade" EntitySet="Grade" />
+            <End Role="Pupil" EntitySet="Pupil" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Timetable__Grade__440B1D61" Association="Self.FK__Timetable__Grade__440B1D61">
+            <End Role="Grade" EntitySet="Grade" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Timetable__Lesso__44FF419A" Association="Self.FK__Timetable__Lesso__44FF419A">
+            <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__LessonTo__5165187F" Association="Self.FK__Report__LessonTo__5165187F">
+            <End Role="LessonTopic" EntitySet="LessonTopic" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__LessonTy__52593CB8" Association="Self.FK__Report__LessonTy__52593CB8">
+            <End Role="LessonType" EntitySet="LessonType" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pupil__PupilStat__48CFD27E" Association="Self.FK__Pupil__PupilStat__48CFD27E">
+            <End Role="PupilStatus" EntitySet="PupilStatus" />
+            <End Role="Pupil" EntitySet="Pupil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_Pupil" Association="Self.FK_Report_Pupil">
+            <End Role="Pupil" EntitySet="Pupil" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__RatingID__4E88ABD4" Association="Self.FK__Report__RatingID__4E88ABD4">
+            <End Role="Rating" EntitySet="Rating" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__TeacherI__4F7CD00D" Association="Self.FK__Report__TeacherI__4F7CD00D">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Report__Timetabl__5070F446" Association="Self.FK__Report__Timetabl__5070F446">
+            <End Role="Timetable" EntitySet="Timetable" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Discipline">
+            <EntityTypeMapping TypeName="Model.Discipline">
+              <MappingFragment StoreEntitySet="Discipline">
+                <ScalarProperty Name="DisciplineID" ColumnName="DisciplineID" />
+                <ScalarProperty Name="DisciplineName" ColumnName="DisciplineName" />
+                <ScalarProperty Name="HoursCount" ColumnName="HoursCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grade">
+            <EntityTypeMapping TypeName="Model.Grade">
+              <MappingFragment StoreEntitySet="Grade">
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+                <ScalarProperty Name="PupilCount" ColumnName="PupilCount" />
+                <ScalarProperty Name="Profile" ColumnName="Profile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lesson">
+            <EntityTypeMapping TypeName="Model.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="LessonID" ColumnName="LessonID" />
+                <ScalarProperty Name="LessonName" ColumnName="LessonName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessonTopic">
+            <EntityTypeMapping TypeName="Model.LessonTopic">
+              <MappingFragment StoreEntitySet="LessonTopic">
+                <ScalarProperty Name="LessonTopicID" ColumnName="LessonTopicID" />
+                <ScalarProperty Name="LessonTopicName" ColumnName="LessonTopicName" />
+                <ScalarProperty Name="HoursCount" ColumnName="HoursCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessonType">
+            <EntityTypeMapping TypeName="Model.LessonType">
+              <MappingFragment StoreEntitySet="LessonType">
+                <ScalarProperty Name="LessonTypeID" ColumnName="LessonTypeID" />
+                <ScalarProperty Name="LessonTypeName" ColumnName="LessonTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pupil">
+            <EntityTypeMapping TypeName="Model.Pupil">
+              <MappingFragment StoreEntitySet="Pupil">
+                <ScalarProperty Name="PupilID" ColumnName="PupilID" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="Characteristic" ColumnName="Characteristic" />
+                <ScalarProperty Name="PupilStatusID" ColumnName="PupilStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PupilStatus">
+            <EntityTypeMapping TypeName="Model.PupilStatus">
+              <MappingFragment StoreEntitySet="PupilStatus">
+                <ScalarProperty Name="PupilStatusID" ColumnName="PupilStatusID" />
+                <ScalarProperty Name="PupilStatusName" ColumnName="PupilStatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rating">
+            <EntityTypeMapping TypeName="Model.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="RatingNumber" ColumnName="RatingNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report">
+            <EntityTypeMapping TypeName="Model.Report">
+              <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+                <ScalarProperty Name="PupilID" ColumnName="PupilID" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="TimetableID" ColumnName="TimetableID" />
+                <ScalarProperty Name="LessonTopicID" ColumnName="LessonTopicID" />
+                <ScalarProperty Name="LessonTypeID" ColumnName="LessonTypeID" />
+                <ScalarProperty Name="IsAttend" ColumnName="IsAttend" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teacher">
+            <EntityTypeMapping TypeName="Model.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="JobExperience" ColumnName="JobExperience" />
+                <ScalarProperty Name="DisciplineID" ColumnName="DisciplineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timetable">
+            <EntityTypeMapping TypeName="Model.Timetable">
+              <MappingFragment StoreEntitySet="Timetable">
+                <ScalarProperty Name="TimetableID" ColumnName="TimetableID" />
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="LessonID" ColumnName="LessonID" />
+                <ScalarProperty Name="LessonNumber" ColumnName="LessonNumber" />
+                <ScalarProperty Name="DateToStudy" ColumnName="DateToStudy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

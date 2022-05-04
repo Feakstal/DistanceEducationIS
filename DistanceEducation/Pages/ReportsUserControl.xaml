@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="DistanceEducation.Pages.ReportsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DistanceEducation.Pages"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0 0 0 1" BorderBrush="#E5E5E5">
+            <Grid Grid.Row="0">
+                <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20">
+                    <TextBlock Text="Отчёты" Style="{StaticResource tblockDefault}" FontSize="24"
+                           FontWeight="Bold" FontFamily="Rockwell" Foreground="Black"
+                           />
+                </WrapPanel>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1">
+            <ListView x:Name="lvReports">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding ReportID}"/>
+                        <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Pupil.Surname}"/>
+                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Pupil.Name}"/>
+                        <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Pupil.FatherName}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</UserControl>
