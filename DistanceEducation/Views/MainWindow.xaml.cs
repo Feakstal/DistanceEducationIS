@@ -1,8 +1,9 @@
-﻿using DistanceEducation.Pages;
-using DistanceEducation.Views;
+﻿using DistanceEducation.Views;
+using DistanceEducation.Pages;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DistanceEducation.DataBase;
 
 namespace DistanceEducation
 {
@@ -16,6 +17,15 @@ namespace DistanceEducation
         {
             InitializeComponent();
             winMain = this;
+
+            if(AuthWindow.employeeFound.FatherName != null && AuthWindow.employeeFound != null)
+            {
+                tboxHello.Text = $"Добро пожаловать, {AuthWindow.employeeFound.Name} {AuthWindow.employeeFound.FatherName}";
+            }
+            else if(AuthWindow.employeeFound != null)
+            {
+                tboxHello.Text = $"Добро пожаловать, {AuthWindow.employeeFound.Name}";
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

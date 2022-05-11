@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="DistanceEducation.Pages.AddEditEmployeeUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:DistanceEducation.Pages"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="grdAddEditEmployee">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.2*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0">
+                    <Button x:Name="btnBack" Style="{StaticResource MaterialDesignPaperButton}" BorderBrush="Transparent" Background="Transparent" Click="btnBack_Click">
+                        <materialDesign:PackIcon Kind="ArrowLeft" Width="20" Height="20"/>
+                    </Button>
+                    <TextBlock Text="Добавление сотрудника" VerticalAlignment="Center" Style="{StaticResource tblockDefault}" FontSize="24"
+                                   FontWeight="Bold" Foreground="#000"/>
+                </WrapPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="tboxSurname" Style="{StaticResource tboxDefault}" materialDesign:HintAssist.Hint="Фамилия"/>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="tboxName" Style="{StaticResource tboxDefault}" materialDesign:HintAssist.Hint="Имя"/>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="tboxFatherName" Style="{StaticResource tboxDefault}" materialDesign:HintAssist.Hint="Отчество"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="tboxJobExperience" Style="{StaticResource tboxDefault}" materialDesign:HintAssist.Hint="Опыт работы"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ComboBox x:Name="cmbDiscipline" Style="{StaticResource cboxDefault}" materialDesign:HintAssist.Hint="Дисциплина" IsEditable="True"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ComboBox x:Name="cmbPost" Style="{StaticResource cboxDefault}" materialDesign:HintAssist.Hint="Должность"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Button x:Name="btnSave" Content="Сохранить" Style="{StaticResource btnDefault}" Click="btnSave_Click"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

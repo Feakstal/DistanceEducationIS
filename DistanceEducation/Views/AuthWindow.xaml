@@ -40,13 +40,13 @@
                     <Image Source="/Resources/Logo/IS.png" Width="50" Height="50" />
                 </StackPanel>
                 <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <TextBox x:Name="tboxLogin" Width="200" BorderBrush="#E5E5E5" materialDesign:HintAssist.Hint="Логин" FontFamily="Corsiva" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox x:Name="tboxLogin" BorderBrush="#E5E5E5" materialDesign:HintAssist.Hint="Логин" Style="{StaticResource tboxDefault}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <PasswordBox x:Name="pboxPassword" Width="200" BorderBrush="#E5E5E5" materialDesign:HintAssist.Hint="Пароль" FontFamily="Corsiva" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Width="200" Content="Войти" BorderBrush="#E5E5E5" FontFamily="Corsiva" FontSize="14" Style="{StaticResource MaterialDesignPaperButton}" Click="btnEnter_Click"/>
+                    <Button Width="200" Content="Войти" FontSize="16" Style="{StaticResource btnDefault}" Click="btnEnter_Click"/>
                 </StackPanel>
             </Grid>
         </Grid>

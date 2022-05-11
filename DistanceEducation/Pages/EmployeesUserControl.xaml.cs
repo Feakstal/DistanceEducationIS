@@ -17,5 +17,17 @@ namespace DistanceEducation.Pages
 
             LvEmployee.ItemsSource = Entities.Employee.ToList();
         }
+
+        private void btnAdd_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            grdEmployee.Children.Clear();
+            grdEmployee.Children.Add(new AddEditEmployeeUserControl());
+        }
+
+        private void btnEdit_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            grdEmployee.Children.Clear();
+            grdEmployee.Children.Add(new AddEditEmployeeUserControl((sender as Button).DataContext as Employee));
+        }
     }
 }
