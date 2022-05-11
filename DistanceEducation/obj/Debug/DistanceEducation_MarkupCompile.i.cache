@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\App.xaml
-61163493773
+7-201396404
 2-1329724926
-25-2050199760
+29-468163790
 202144112136
-Pages\PupilsUserControl.xaml;Pages\ReportsUserControl.xaml;Pages\TeachersUserControl.xaml;Pages\TimetableUserControl.xaml;Resources\Dictionary.xaml;Views\MainWindow.xaml;
+Pages\EmployeesUserControl.xaml;Pages\PupilsUserControl.xaml;Pages\ReportsUserControl.xaml;Pages\TimetableUserControl.xaml;Resources\Dictionary.xaml;Views\AuthWindow.xaml;Views\MainWindow.xaml;
 
-False
+True
 

@@ -12,19 +12,13 @@ namespace DistanceEducation.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Discipline
+    public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Discipline()
-        {
-            this.Employee = new HashSet<Employee>();
-        }
+        public int UserID { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public int PostID { get; set; }
     
-        public int DisciplineID { get; set; }
-        public string DisciplineName { get; set; }
-        public short HoursCount { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

@@ -4,29 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fce91b802e91424ea28a4b604edd3e8a" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.Discipline" Width="1.5" PointX="3.75" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Grade" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Lesson" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.LessonTopic" Width="1.5" PointX="6" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.LessonType" Width="1.5" PointX="6" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Pupil" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PupilStatus" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Rating" Width="1.5" PointX="6" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Report" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Teacher" Width="1.5" PointX="6" PointY="16.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Timetable" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
-        <AssociationConnector Association="Model.FK__Teacher__Discipl__4BAC3F29" ManuallyRouted="false" />
+      <Diagram DiagramId="c16693516bf4490d91734001e26952b3" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Discipline" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Employee" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Grade" Width="1.5" PointX="0.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Lesson" Width="1.5" PointX="0.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LessonTopic" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LessonType" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Post" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Pupil" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PupilStatus" Width="1.5" PointX="0.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Rating" Width="1.5" PointX="3" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Report" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Timetable" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.User" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK__Employee__Discipl__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Report__EmployeeI__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employee_Post" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Pupil__GradeID__47DBAE45" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Timetable__Grade__440B1D61" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Timetable__Lesso__44FF419A" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Report__LessonTo__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Report__LessonTy__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_User_Post" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Pupil__PupilStat__48CFD27E" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Report_Pupil" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Report__RatingID__4E88ABD4" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Report__TeacherI__4F7CD00D" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Report__Timetabl__5070F446" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

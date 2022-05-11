@@ -26,7 +26,7 @@ namespace DistanceEducation.Pages
         public ReportsUserControl()
         {
             InitializeComponent();
-            lvReports.ItemsSource = Entities.Report.ToList();
+            LvReports.ItemsSource = Entities.Report.ToList();
         }
     }
 }

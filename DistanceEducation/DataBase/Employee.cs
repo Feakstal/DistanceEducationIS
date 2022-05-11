@@ -12,23 +12,25 @@ namespace DistanceEducation.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Teacher
+    public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Teacher()
+        public Employee()
         {
             this.Report = new HashSet<Report>();
         }
     
-        public int TeacherID { get; set; }
+        public int EmployeeID { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
         public string FatherName { get; set; }
         public byte JobExperience { get; set; }
-        public int DisciplineID { get; set; }
+        public Nullable<int> DisciplineID { get; set; }
+        public int PostID { get; set; }
     
         public virtual Discipline Discipline { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Report> Report { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

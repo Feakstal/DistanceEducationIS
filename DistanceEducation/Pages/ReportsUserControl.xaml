@@ -22,13 +22,45 @@
             </Grid>
         </Border>
         <Grid Grid.Row="1">
-            <ListView x:Name="lvReports">
+            <ListView x:Name="LvReports">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding ReportID}"/>
-                        <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Pupil.Surname}"/>
-                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Pupil.Name}"/>
-                        <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Pupil.FatherName}"/>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ReportID}"/>
+                        <GridViewColumn Header="ФИО ученика">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}{1} {2}">
+                                                <Binding Path="Pupil.Surname" />
+                                                <Binding Path="Pupil.Name" />
+                                                <Binding Path="Employee.FatherName" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Оценка" DisplayMemberBinding="{Binding Rating.RatingNumber}"/>
+                        <GridViewColumn Header="ФИО сотрудника">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}{1} {2}">
+                                                <Binding Path="Employee.Surname" />
+                                                <Binding Path="Employee.Name" />
+                                                <Binding Path="Employee.FatherName" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Оценка" DisplayMemberBinding="{Binding Timetable.DateToStudy}"/>
+                        <GridViewColumn Header="Тема урока" DisplayMemberBinding="{Binding LessonTopic.LessonTopicName}"/>
+                        <GridViewColumn Header="Тип урока" DisplayMemberBinding="{Binding LessonType.LessonTypeNane}"/>
+                        <GridViewColumn Header="Присутствовал" DisplayMemberBinding="{Binding IsAttend}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

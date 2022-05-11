@@ -6,7 +6,33 @@
              xmlns:local="clr-namespace:DistanceEducation.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0 0 0 1" BorderBrush="#E5E5E5">
+            <Grid Grid.Row="0">
+                <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20">
+                    <TextBlock Text="Расписание" Style="{StaticResource tblockDefault}" FontSize="24"
+                           FontWeight="Bold" FontFamily="Rockwell" Foreground="Black"
+                           />
+                </WrapPanel>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1">
+            <ListView x:Name="LvTimetable">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding TimetableID}"/>
+                        <GridViewColumn Header="Класс" DisplayMemberBinding="{Binding Grade.GradeName}"/>
+                        <GridViewColumn Header="Название урока" DisplayMemberBinding="{Binding Lesson.LessonName}"/>
+                        <GridViewColumn Header="Номер урока" DisplayMemberBinding="{Binding LessonNumber}"/>
+                        <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding DateToStudy}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>

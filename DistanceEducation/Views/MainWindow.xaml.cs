@@ -1,24 +1,15 @@
 ﻿using DistanceEducation.Pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DistanceEducation.Views;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DistanceEducation
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -29,25 +20,27 @@ namespace DistanceEducation
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            var question = MessageBox.Show("Вы действительно хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (question == MessageBoxResult.Yes)
+            var question = MessageBox.Show("Вы действительно хотите закрыть программу?", "Завершение работы", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (question == MessageBoxResult.Yes) 
                 Application.Current.Shutdown();
         }
 
         private void btnMaxWindow_Click(object sender, RoutedEventArgs e)
         {
-
+            if (this.WindowState == WindowState.Normal)
+                this.WindowState = WindowState.Maximized;
+            else
+                this.WindowState = WindowState.Normal;
         }
 
         private void btnMinWindow_Click(object sender, RoutedEventArgs e)
         {
-
+            this.WindowState = WindowState.Minimized;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Mouse.LeftButton == MouseButtonState.Pressed)
-                winMain.DragMove();
+            if (Mouse.LeftButton == MouseButtonState.Pressed) winMain.DragMove();
         }
 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
@@ -68,7 +61,7 @@ namespace DistanceEducation
             grdMain.Children.Clear();
 
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
-            {
+            {             
                 case "ItemReports":
                     usc = new ReportsUserControl();
                     grdMain.Children.Add(usc);
@@ -78,7 +71,7 @@ namespace DistanceEducation
                     grdMain.Children.Add(usc);
                     break;                
                 case "ItemTeachers":
-                    usc = new TeachersUserControl();
+                    usc = new EmployeesUserControl();
                     grdMain.Children.Add(usc);
                     break;
                 case "ItemPupils":
@@ -88,6 +81,30 @@ namespace DistanceEducation
                 default:
                     break;
             }
+        }
+
+        private void lvExit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
+            {
+                case "ItemExit":
+                    var question = MessageBox.Show("Вы действительно хотите выйти из профиля?", "Смена пользователя", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (question == MessageBoxResult.Yes)
+                    {
+                        AuthWindow authWindow = new AuthWindow();
+                        authWindow.Show();
+                        this.Close();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void LvMenu_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
         }
     }
 }

@@ -6,7 +6,34 @@
              xmlns:local="clr-namespace:DistanceEducation.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0 0 0 1" BorderBrush="#E5E5E5">
+            <Grid Grid.Row="0">
+                <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20">
+                    <TextBlock Text="Ученики" Style="{StaticResource tblockDefault}" FontSize="24"
+                           FontWeight="Bold" FontFamily="Rockwell" Foreground="Black"
+                           />
+                </WrapPanel>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1">
+            <ListView x:Name="LvPupils" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="auto" DisplayMemberBinding="{Binding EmployeeID}"/>
+                        <GridViewColumn Header="Фамилия" Width="auto" DisplayMemberBinding="{Binding Surname}"/>
+                        <GridViewColumn Header="Имя" Width="auto" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Отчество" Width="auto" DisplayMemberBinding="{Binding FatherName}"/>
+                        <GridViewColumn Header="Класс" Width="auto" DisplayMemberBinding="{Binding Grade.GradeName}"/>
+                        <GridViewColumn Header="Статус" Width="auto" DisplayMemberBinding="{Binding PupilStatus.PupilStatusName}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>

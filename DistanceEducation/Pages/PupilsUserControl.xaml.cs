@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DistanceEducation.DataBase;
 
 namespace DistanceEducation.Pages
 {
@@ -20,9 +21,12 @@ namespace DistanceEducation.Pages
     /// </summary>
     public partial class PupilsUserControl : UserControl
     {
+        Entities Entities = new Entities();
+
         public PupilsUserControl()
         {
             InitializeComponent();
+            LvPupils.ItemsSource = Entities.Pupil.ToList();
         }
     }
 }

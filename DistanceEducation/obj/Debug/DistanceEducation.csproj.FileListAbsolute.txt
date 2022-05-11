@@ -22,11 +22,9 @@ C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\bin\Debug\Materi
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Resources\Dictionary.baml
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\PupilsUserControl.g.cs
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\ReportsUserControl.g.cs
-C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\TeachersUserControl.g.cs
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\TimetableUserControl.g.cs
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\ReportsUserControl.baml
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\TimetableUserControl.baml
-C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\TeachersUserControl.baml
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\PupilsUserControl.baml
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\bin\Debug\EntityFramework.dll
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\bin\Debug\EntityFramework.SqlServer.dll
@@ -34,4 +32,7 @@ C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\bin\Debug\Entity
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\bin\Debug\ru\EntityFramework.resources.dll
 C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\DistanceEducation_Content.g.cs
-C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\DistanceEducation.csproj.CopyComplete
+C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Views\AuthWindow.g.cs
+C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Views\AuthWindow.baml
+C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\EmployeesUserControl.g.cs
+C:\Users\feaks\source\repos\DistanceEducation\DistanceEducation\obj\Debug\Pages\EmployeesUserControl.baml

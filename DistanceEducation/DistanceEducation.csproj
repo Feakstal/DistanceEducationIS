@@ -72,6 +72,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\EmployeesUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PupilsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,15 +84,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\TeachersUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\TimetableUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Dictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AuthWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,6 +105,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataBase\Discipline.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Grade.cs">
@@ -130,6 +137,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\Post.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\Pupil.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -145,11 +155,14 @@
     <Compile Include="DataBase\sysdiagrams.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\Teacher.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\Timetable.cs">
       <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\User.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EmployeesUserControl.xaml.cs">
+      <DependentUpon>EmployeesUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PupilsUserControl.xaml.cs">
       <DependentUpon>PupilsUserControl.xaml</DependentUpon>
@@ -157,11 +170,12 @@
     <Compile Include="Pages\ReportsUserControl.xaml.cs">
       <DependentUpon>ReportsUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TeachersUserControl.xaml.cs">
-      <DependentUpon>TeachersUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\TimetableUserControl.xaml.cs">
       <DependentUpon>TimetableUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\utils.cs" />
+    <Compile Include="Views\AuthWindow.xaml.cs">
+      <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -205,6 +219,10 @@
   <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo\IS.png" />
+    <Resource Include="Resources\Icon\IS.ico" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataBase\Model.Context.tt">
