@@ -3,37 +3,92 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DistanceEducation.Pages"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="#FFFFFF">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Border BorderThickness="0 0 0 1" BorderBrush="#E5E5E5">
-            <Grid Grid.Row="0">
-                <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20">
-                    <TextBlock Text="Ученики" Style="{StaticResource tblockDefault}" FontSize="24"
-                           FontWeight="Bold" FontFamily="Rockwell" Foreground="Black"
-                           />
-                </WrapPanel>
+             d:DesignHeight="450" d:DesignWidth="1280" Loaded="UserControl_Loaded">
+    <Grid x:Name="grdPupil">
+        <Grid Background="#FFFFFF">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+            <Border BorderThickness="0 0 0 1" BorderBrush="#E5E5E5">
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <WrapPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <WrapPanel Margin="20 0">
+                            <Button x:Name="btnBack" Height="60" Width="60"
+                                        HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" 
+                                        Foreground="Black" Click="btnBack_Click">
+                                <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30"/>
+                            </Button>
+                            <TextBlock Text="Ученики" Style="{StaticResource tblockDefault}" FontSize="30"
+                               FontWeight="Bold" Foreground="#000"
+                               />
+                        </WrapPanel>
+                        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <Button x:Name="btnAdd" Width="160" Content="Добавить ученика" Style="{StaticResource btnDefault}" Click="btnAdd_Click"/>
+                        </WrapPanel>
+                    </WrapPanel>
+                    <WrapPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="40 0">
+                        <TextBox x:Name="tboxSearch" Style="{StaticResource tboxDefault}" Margin="0 0 40 0" Width="220" 
+                                 materialDesign:HintAssist.Hint="Поиск по фамилии ученика" SelectionChanged="tboxSearch_SelectionChanged"/>
+                        <ComboBox x:Name="cboxSort" Style="{StaticResource cboxDefault}" ToolTip="Сортировка" Width="220" 
+                                  materialDesign:HintAssist.Hint="Сортировка" Margin="0 11 0 0" SelectionChanged="cboxSort_SelectionChanged"/>
+                    </WrapPanel>
+                    <WrapPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="40 0">
+                        <ComboBox x:Name="cboxFiltrGrade" Style="{StaticResource cboxDefault}" Width="220" 
+                                  materialDesign:HintAssist.Hint="Фильтрация по классам" ToolTip="Фильтрация по классам" SelectionChanged="cboxFiltrGrade_SelectionChanged"/>
+                    </WrapPanel>
+                    <WrapPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20 5">
+                        <TextBlock x:Name="tblockItemsCount" Text="Количество записей: " Style="{StaticResource tblockDefault}"/>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1">
+                <ListView x:Name="LvPupils" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="60" Width="{Binding ElementName=LvPupils, Path=ActualWidth}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.4*"/>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.2*"/>
+                                </Grid.ColumnDefinitions>
+                                <WrapPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding PupilID}" Style="{StaticResource tblockDefault}" ToolTip="Идентификатор"/>
+                                </WrapPanel>
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding Surname}" Style="{StaticResource tblockDefault}" FontSize="18"/>
+                                        <TextBlock Text="{Binding Name}" Style="{StaticResource tblockDefault}" Margin="5 0" FontSize="18"/>
+                                        <TextBlock Text="{Binding FatherName}" Style="{StaticResource tblockDefault}" FontSize="18"/>
+                                    </WrapPanel>
+                                    <TextBlock Text="{Binding Grade.GradeName}" Style="{StaticResource tblockDefault}" ToolTip="Название класса"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding PupilStatusDesc}" Style="{StaticResource tblockDefault}" ToolTip="Статус ученика дисциплины"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button x:Name="btnEdit" Click="btnEdit_Click" Background="Transparent" BorderBrush="Transparent">
+                                        <materialDesign:PackIcon Kind="Pencil" Foreground="#767676" Width="20" Height="20"/>
+                                    </Button>
+                                    <Button x:Name="btnDelete" Background="Transparent" BorderBrush="Transparent" Click="btnDelete_Click">
+                                        <materialDesign:PackIcon Kind="Close" Foreground="#767676" Width="20" Height="20"/>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
-        </Border>
-        <Grid Grid.Row="1">
-            <ListView x:Name="LvPupils" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ID" Width="auto" DisplayMemberBinding="{Binding EmployeeID}"/>
-                        <GridViewColumn Header="Фамилия" Width="auto" DisplayMemberBinding="{Binding Surname}"/>
-                        <GridViewColumn Header="Имя" Width="auto" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Отчество" Width="auto" DisplayMemberBinding="{Binding FatherName}"/>
-                        <GridViewColumn Header="Класс" Width="auto" DisplayMemberBinding="{Binding Grade.GradeName}"/>
-                        <GridViewColumn Header="Статус" Width="auto" DisplayMemberBinding="{Binding PupilStatus.PupilStatusName}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
         </Grid>
     </Grid>
 </UserControl>

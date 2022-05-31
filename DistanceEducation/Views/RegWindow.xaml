@@ -1,0 +1,80 @@
+﻿<Window x:Class="DistanceEducation.Views.RegWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="RegWindow" x:Name="winReg" Height="450" Width="490" WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize"  WindowStyle="None" AllowsTransparency="True" Background="Transparent" Icon="/Resources/Icon/IS.ico">
+    <Border Grid.Row="0" BorderBrush="#E5E5E5" Background="#FFFFFF" BorderThickness="1" CornerRadius="3">
+        <Grid x:Name="grdAuth">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" BorderBrush="#E5E5E5" Background="#FFFFFF" BorderThickness="0 0 0 1" CornerRadius="3 3 0 0" MouseDown="Border_MouseDown">
+                    <Grid>
+                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 0 0 0">
+                            <TextBlock x:Name="tblockTitle" Text="Регистрация | ИС ГБОУ СОШ №2072" Style="{StaticResource tblockDefault}" 
+                                   FontSize="16" FontWeight="Bold" 
+                                   Foreground="Black"/>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0">
+                            <Button TabIndex="7" x:Name="btnClose" Style="{StaticResource btnUpperBar}" Click="btnClose_Click" FontWeight="Bold">
+                                <materialDesign:PackIcon Kind="Close" Width="13" Height="13" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+                </Border>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.25*"/>
+                        <RowDefinition Height="0.4*"/>
+                        <RowDefinition Height="0.35*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <StackPanel>
+                            <Button TabIndex="6" x:Name="btnBack" Height="60" Width="60"
+                                        HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" 
+                                        Foreground="Black" Click="btnBack_Click">
+                                <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30"/>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <Image Source="/Resources/Logo/IS.png" Width="50" Height="50" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <TextBox TabIndex="1" x:Name="tboxLogin" materialDesign:HintAssist.Hint="Логин" Style="{StaticResource tboxDefault}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <PasswordBox TabIndex="2" x:Name="pboxPassword" Width="200" BorderBrush="#E5E5E5" materialDesign:HintAssist.Hint="Пароль" FontFamily="Corsiva" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <TextBox TabIndex="3" x:Name="tboxSurname" materialDesign:HintAssist.Hint="Фамилия" Style="{StaticResource tboxDefault}" PreviewTextInput="tboxSurname_PreviewTextInput"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <TextBox TabIndex="4" x:Name="tboxName" materialDesign:HintAssist.Hint="Имя" Style="{StaticResource tboxDefault}" PreviewTextInput="tboxName_PreviewTextInput"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button TabIndex="5" x:Name="btnSave" Width="200" Content="Создать" FontSize="16" Style="{StaticResource btnDefault}" Click="btnSave_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

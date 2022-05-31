@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using DistanceEducation.DataBase;
 
 namespace DistanceEducation.Views
@@ -12,9 +14,9 @@ namespace DistanceEducation.Views
     public partial class AuthWindow : Window
     {
         Entities Entities = new Entities();
-        public static User authUser;
-        public static Post postFound;
-        public static Employee employeeFound;
+
+        private static User AuthUser;
+        public static Employee EmployeeFound;
 
         public AuthWindow()
         {
@@ -24,30 +26,21 @@ namespace DistanceEducation.Views
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
-            authUser = Entities.User.FirstOrDefault(i => i.Login == tboxLogin.Text && i.Password == pboxPassword.Password);
+            AuthUser = Entities.User.FirstOrDefault(i => i.Login == tboxLogin.Text && i.Password == pboxPassword.Password);
 
-            if (authUser != null)
+            if (AuthUser != null)
             {
-                postFound = Entities.Post.Where(i => i.PostID == authUser.PostID).FirstOrDefault();
-                employeeFound = Entities.Employee.Where(i => i.PostID == postFound.PostID).FirstOrDefault();
+                EmployeeFound = Entities.Employee.Where(i => i.EmployeeID == AuthUser.EmployeeID).FirstOrDefault();
 
-                if (employeeFound == null)
+                if (EmployeeFound == null)
                 {
                     MessageBox.Show("Идентификация не пройдена. Пользователь не найден.", "Авторизация", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-                else if (employeeFound != null && employeeFound.FatherName != null)
+                else if (EmployeeFound != null)
                 {
-                    MessageBox.Show($"Здравствуйте, {employeeFound.Name} {employeeFound.FatherName}.", "Авторизация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"Здравствуйте, {EmployeeFound.Name}.", "Авторизация", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    Hide();
-                }
-                else if (employeeFound != null && employeeFound.FatherName == null)
-                {
-                    MessageBox.Show($"Здравствуйте, {employeeFound.Name}.", "Авторизация", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    MainWindow mainWindow = new MainWindow();
+                    MainWindow mainWindow = new MainWindow(EmployeeFound);
                     mainWindow.Show();
                     Hide();
                 }
@@ -76,13 +69,25 @@ namespace DistanceEducation.Views
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             var question = MessageBox.Show("Вы действительно хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (question == MessageBoxResult.Yes)
-                Application.Current.Shutdown();
+
+            if (question == MessageBoxResult.Yes) Application.Current.Shutdown();
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed) winAuth.DragMove();
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            var question = MessageBox.Show("Вы действительно хотите перейти в окно регистрации?", "Авторизация", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (question == MessageBoxResult.Yes)
+            {
+                RegWindow regWindow = new RegWindow();
+                this.Close();
+                regWindow.ShowDialog();
+            }
         }
     }
 }

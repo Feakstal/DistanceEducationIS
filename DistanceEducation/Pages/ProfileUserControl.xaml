@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="DistanceEducation.Pages.ProfileUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1280" Loaded="UserControl_Loaded">
+    <Grid x:Name="grdProfile" Grid.Column="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0">
+                    <TextBlock Text="Профиль" Style="{StaticResource tblockDefault}" FontSize="30"
+                               FontWeight="Bold" Foreground="#000"
+                               />
+                </StackPanel>
+                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 20 0">
+                    <TextBlock x:Name="tboxCurrentDateTime" Text="Загружается..." FontSize="24" Style="{StaticResource tblockDefault}"/>
+                </WrapPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="tboxSurname" materialDesign:HintAssist.Hint="Фамилия" Style="{StaticResource tboxDefault}" PreviewTextInput="tboxSurname_PreviewTextInput"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="tboxName" materialDesign:HintAssist.Hint="Имя" Style="{StaticResource tboxDefault}" PreviewTextInput="tboxName_PreviewTextInput"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="tboxFatherName" materialDesign:HintAssist.Hint="Отчество" Style="{StaticResource tboxDefault}" PreviewTextInput="tboxFatherName_PreviewTextInput"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="tboxJobExperience" materialDesign:HintAssist.Hint="Опыт работы" Style="{StaticResource tboxDefault}" PreviewTextInput="tboxJobExperience_PreviewTextInput"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ComboBox x:Name="cboxDiscipline" materialDesign:HintAssist.Hint="Дисциплина" Style="{StaticResource cboxDefault}" PreviewTextInput="cboxDiscipline_PreviewTextInput"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ComboBox x:Name="cboxPost" materialDesign:HintAssist.Hint="Должность" IsEnabled="False" Style="{StaticResource cboxDefault}" PreviewTextInput="cboxPost_PreviewTextInput"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button x:Name="btnSave" Width="200" Content="Сохранить" FontSize="16" Style="{StaticResource btnDefault}" Click="btnSave_Click"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -3,7 +3,11 @@ using DistanceEducation.Pages;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DistanceEducation.Classes;
+using System.Windows.Threading;
+using System;
 using DistanceEducation.DataBase;
+using System.Linq;
 
 namespace DistanceEducation
 {
@@ -13,25 +17,82 @@ namespace DistanceEducation
 
     public partial class MainWindow : Window
     {
+        Entities Entities = new Entities();
+        
         public MainWindow()
         {
             InitializeComponent();
             winMain = this;
+        }
 
-            if(AuthWindow.employeeFound.FatherName != null && AuthWindow.employeeFound != null)
+        public MainWindow(Employee GetEmployee)
+        {
+            InitializeComponent();
+            winMain = this;
+
+            grdMain.Children.Add(new ProfileUserControl(GetEmployee));
+        }
+
+        private void lvMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            grdMain.Children.Clear();
+
+            UserControl usc;
+            switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
-                tboxHello.Text = $"Добро пожаловать, {AuthWindow.employeeFound.Name} {AuthWindow.employeeFound.FatherName}";
+                case "ItemReports":
+                    usc = new ReportsUserControl();
+                    grdMain.Children.Add(usc);
+                    break;
+                case "ItemTimetable":
+                    usc = new TimetableUserControl();
+                    grdMain.Children.Add(usc);
+                    break;
+                case "ItemTeachers":
+                    usc = new EmployeesUserControl();
+                    grdMain.Children.Add(usc);
+                    break;
+                case "ItemPupils":
+                    usc = new PupilsUserControl();
+                    grdMain.Children.Add(usc);
+                    break;
+                case "ItemGrades":
+                    usc = new GradesUserControl();
+                    grdMain.Children.Add(usc);
+                    break;
+                case "ItemLessons":
+                    usc = new LessonsUserControl();
+                    grdMain.Children.Add(usc);
+                    break;
+                case "ItemDisciplines":
+                    usc = new DisciplinesUserControl();
+                    grdMain.Children.Add(usc);
+                    break;
+                default:
+                    break;
             }
-            else if(AuthWindow.employeeFound != null)
+        }
+
+        private void ItemExit_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var item = (sender as ListView).SelectedItem;
+            if (item != null)
             {
-                tboxHello.Text = $"Добро пожаловать, {AuthWindow.employeeFound.Name}";
+                var question = MessageBox.Show("Вы действительно хотите выйти из профиля?", "Смена пользователя", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (question == MessageBoxResult.Yes)
+                {
+                    AuthWindow authWindow = new AuthWindow();
+                    authWindow.Show();
+                    this.Close();
+                }
             }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             var question = MessageBox.Show("Вы действительно хотите закрыть программу?", "Завершение работы", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (question == MessageBoxResult.Yes) 
+
+            if (question == MessageBoxResult.Yes)
                 Application.Current.Shutdown();
         }
 
@@ -63,58 +124,6 @@ namespace DistanceEducation
         {
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
-        }
-
-        private void lvMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UserControl usc = null;
-            grdMain.Children.Clear();
-
-            switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
-            {             
-                case "ItemReports":
-                    usc = new ReportsUserControl();
-                    grdMain.Children.Add(usc);
-                    break;                
-                case "ItemTimetable":
-                    usc = new TimetableUserControl();
-                    grdMain.Children.Add(usc);
-                    break;                
-                case "ItemTeachers":
-                    usc = new EmployeesUserControl();
-                    grdMain.Children.Add(usc);
-                    break;
-                case "ItemPupils":
-                    usc = new PupilsUserControl();
-                    grdMain.Children.Add(usc);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void lvExit_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-            switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
-            {
-                case "ItemExit":
-                    var question = MessageBox.Show("Вы действительно хотите выйти из профиля?", "Смена пользователя", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (question == MessageBoxResult.Yes)
-                    {
-                        AuthWindow authWindow = new AuthWindow();
-                        authWindow.Show();
-                        this.Close();
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void LvMenu_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-
         }
     }
 }

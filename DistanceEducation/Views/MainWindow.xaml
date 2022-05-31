@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DistanceEducation"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Главное окно" x:Name="winMain" Height="600" Width="1280" MinWidth="1100" MinHeight="462" Icon="/Resources/Icon/IS.ico" 
+        Title="Главное окно" x:Name="winMain" Height="600" Width="1280" MinWidth="1200" MinHeight="580" Icon="/Resources/Icon/IS.ico" 
         WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
@@ -38,10 +38,15 @@
             </Grid.RowDefinitions>
             <Border Grid.Row="0" BorderBrush="#E5E5E5" Background="#FFFFFF" BorderThickness="0 0 0 1" CornerRadius="3 3 0 0" MouseDown="Border_MouseDown">
                 <Grid>
-                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18 0 0 0">
-                        <TextBlock Text="Главное окно | ИС ГБОУ СОШ №2072" Style="{StaticResource tblockDefault}" 
+                    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <WrapPanel  Margin="18 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image Source="/Resources/Logo/IS.png" Width="20" Height="20"/>
+                        </WrapPanel>
+                        <WrapPanel Margin="0 5">
+                            <TextBlock Text="Главное окно | ИС ГБОУ СОШ №2072" Style="{StaticResource tblockDefault}" 
                                    FontSize="16" FontWeight="Bold" 
                                    Foreground="Black"/>
+                        </WrapPanel>
                     </WrapPanel>
                     <WrapPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0">
                         <Button x:Name="btnMinWindow" Style="{StaticResource btnUpperBar}"
@@ -99,7 +104,7 @@
                                 <ListViewItem x:Name="ItemTimetable" Height="60" ToolTip="Расписание">
                                     <WrapPanel>
                                         <materialDesign:PackIcon Margin="7"
-                                        Kind="Timetable" Width="30" Height="30"/>
+                                        Kind="CalendarBlank" Width="30" Height="30"/>
                                         <TextBlock Text="Расписание" Style="{StaticResource tblockDefault}" 
                                            Margin="20 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"/>
                                     </WrapPanel>
@@ -107,7 +112,7 @@
                                 <ListViewItem x:Name="ItemTeachers" Height="60" ToolTip="Сотрудники">
                                     <WrapPanel>
                                         <materialDesign:PackIcon Margin="7"
-                                                                 Kind="People" Width="30" Height="30"/>
+                                                                 Kind="AccountTie" Width="30" Height="30"/>
                                         <TextBlock Text="Сотрудники" Style="{StaticResource tblockDefault}"
                                                    Margin="20 10" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"/>
                                     </WrapPanel>
@@ -115,23 +120,39 @@
                                 <ListViewItem x:Name="ItemPupils" Height="60" ToolTip="Ученики">
                                     <WrapPanel>
                                         <materialDesign:PackIcon Margin="7"
-                                        Kind="School" Width="30" Height="30"/>
+                                        Kind="AccountSchool" Width="30" Height="30"/>
                                         <TextBlock Text="Ученики" Style="{StaticResource tblockDefault}"
                                            Margin="20 10" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"/>
                                     </WrapPanel>
                                 </ListViewItem>
-                                <ListViewItem x:Name="ItemAdditional" Height="60" ToolTip="Дополнительные функции">
+                                <ListViewItem x:Name="ItemGrades" Height="60" ToolTip="Классы">
                                     <WrapPanel>
                                         <materialDesign:PackIcon Margin="7"
-                                        Kind="Dialpad" Width="30" Height="30"/>
-                                        <TextBlock Text="Дополнительно" FontSize="12" Style="{StaticResource tblockDefault}"
+                                        Kind="PeopleGroup" Width="30" Height="30"/>
+                                        <TextBlock Text="Классы" FontSize="12" Style="{StaticResource tblockDefault}"
+                                           Margin="20 10" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    </WrapPanel>
+                                </ListViewItem>                                
+                                <ListViewItem x:Name="ItemLessons" Height="60" ToolTip="Уроки">
+                                    <WrapPanel>
+                                        <materialDesign:PackIcon Margin="7"
+                                        Kind="Book" Width="30" Height="30"/>
+                                        <TextBlock Text="Уроки" FontSize="12" Style="{StaticResource tblockDefault}"
+                                           Margin="20 10" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    </WrapPanel>
+                                </ListViewItem>                                
+                                <ListViewItem x:Name="ItemDisciplines" Height="60" ToolTip="Дисциплины">
+                                    <WrapPanel>
+                                        <materialDesign:PackIcon Margin="7"
+                                        Kind="Library" Width="30" Height="30"/>
+                                        <TextBlock Text="Дисциплины" FontSize="12" Style="{StaticResource tblockDefault}"
                                            Margin="20 10" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     </WrapPanel>
                                 </ListViewItem>
                             </ListView>
                         </StackPanel>
                         <StackPanel VerticalAlignment="Bottom">
-                            <ListView x:Name="LvExit" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="lvExit_SelectionChanged">
+                            <ListView x:Name="LvExit" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewMouseLeftButtonUp="ItemExit_PreviewMouseLeftButtonUp">
                                 <ListViewItem x:Name="ItemExit" Height="60" ToolTip="Сменить пользователя">
                                     <WrapPanel>
                                         <materialDesign:PackIcon Margin="7"
@@ -144,16 +165,7 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-                <Grid x:Name="grdMain" Grid.Column="1">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock x:Name="tboxHello" Style="{StaticResource tblockDefault}" HorizontalAlignment="Center" FontSize="36"/>
-                        <Separator Background="#E5E5E5" Width="600">
-                            <Separator.RenderTransform>
-                                <ScaleTransform ScaleY="3" />
-                            </Separator.RenderTransform>
-                        </Separator>
-                    </StackPanel>
-                </Grid>
+                <Grid x:Name="grdMain" Grid.Column="1"/>
             </Grid>
         </Grid>
     </Border>

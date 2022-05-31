@@ -3,21 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DistanceEducation.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="AuthWindow" x:Name="winAuth" Height="400" Width="350" WindowStartupLocation="CenterScreen" 
         ResizeMode="NoResize"  WindowStyle="None" AllowsTransparency="True" Background="Transparent" Icon="/Resources/Icon/IS.ico">
-    <Border Grid.Row="0" BorderBrush="#E5E5E5" Background="#FFFFFF" BorderThickness="1" CornerRadius="3" MouseDown="Border_MouseDown">
-        <Grid>
-            <Grid.RowDefinitions>
+    <Border Grid.Row="0" BorderBrush="#E5E5E5" Background="#FFFFFF" BorderThickness="1" CornerRadius="3">
+        <Grid x:Name="grdAuth">
+            <Grid>
+                <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" BorderBrush="#E5E5E5" Background="#FFFFFF" BorderThickness="0 0 0 1" CornerRadius="3 3 0 0" MouseDown="Border_MouseDown">
                 <Grid>
-                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18 0 0 0">
-                        <TextBlock Text="Авторизация | ИС ГБОУ СОШ №2072" Style="{StaticResource tblockDefault}" 
+                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 0 0 0">
+                        <TextBlock x:Name="tblockTitle" Text="Авторизация | ИС ГБОУ СОШ №2072" Style="{StaticResource tblockDefault}" 
                                    FontSize="16" FontWeight="Bold" 
                                    Foreground="Black"/>
                     </WrapPanel>
@@ -29,25 +29,31 @@
                     </WrapPanel>
                 </Grid>
             </Border>
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.25*"/>
-                    <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="0.35*"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Image Source="/Resources/Logo/IS.png" Width="50" Height="50" />
-                </StackPanel>
-                <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <TextBox x:Name="tboxLogin" BorderBrush="#E5E5E5" materialDesign:HintAssist.Hint="Логин" Style="{StaticResource tboxDefault}"/>
-                </StackPanel>
-                <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <PasswordBox x:Name="pboxPassword" Width="200" BorderBrush="#E5E5E5" materialDesign:HintAssist.Hint="Пароль" FontFamily="Corsiva" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
-                </StackPanel>
-                <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Width="200" Content="Войти" FontSize="16" Style="{StaticResource btnDefault}" Click="btnEnter_Click"/>
-                </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.25*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.35*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Image Source="/Resources/Logo/IS.png" Width="50" Height="50" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <TextBox TabIndex="1" x:Name="tboxLogin" BorderBrush="#E5E5E5" materialDesign:HintAssist.Hint="Логин" Style="{StaticResource tboxDefault}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <PasswordBox TabIndex="2" x:Name="pboxPassword" Width="200" BorderBrush="#E5E5E5" materialDesign:HintAssist.Hint="Пароль" FontFamily="Corsiva" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button TabIndex="3" Width="200" Content="Войти" FontSize="16" Style="{StaticResource btnDefault}" Click="btnEnter_Click" IsDefault="True"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 5">
+                        <TextBlock>
+                            <Hyperlink Click="Hyperlink_Click" FontFamily="Corsiva" FontSize="12" Foreground="#767676">Нет учётной записи?</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
     </Border>

@@ -1,12 +1,13 @@
-﻿<UserControl x:Class="DistanceEducation.Pages.AddEditEmployeeUserControl"
+﻿<UserControl x:Class="DistanceEducation.Pages.AddEditTimetableUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="grdAddEditEmployee">
+    <Grid x:Name="grdAddEditTimetable">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.2*"/>
@@ -35,23 +36,20 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBox x:Name="tboxSurname" Style="{StaticResource tboxDefault}" materialDesign:HintAssist.Hint="Фамилия" PreviewTextInput="tboxSurname_PreviewTextInput"/>
+                    <ComboBox x:Name="cboxGrade" Style="{StaticResource cboxDefault}" materialDesign:HintAssist.Hint="Название класса" IsEditable="True" PreviewTextInput="cboxGrade_PreviewTextInput"/>
                 </StackPanel>
                 <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBox x:Name="tboxName" Style="{StaticResource tboxDefault}" materialDesign:HintAssist.Hint="Имя" PreviewTextInput="tboxName_PreviewTextInput"/>
+                    <ComboBox x:Name="cboxLesson" Style="{StaticResource cboxDefault}" materialDesign:HintAssist.Hint="Название урока" IsEditable="True" PreviewTextInput="cboxLesson_PreviewTextInput"/>
                 </StackPanel>
                 <StackPanel Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBox x:Name="tboxFatherName" Style="{StaticResource tboxDefault}" materialDesign:HintAssist.Hint="Отчество" PreviewTextInput="tboxFatherName_PreviewTextInput"/>
+                    <TextBox x:Name="tboxLessonNumber" Style="{StaticResource tboxDefault}" materialDesign:HintAssist.Hint="Номер урока" PreviewTextInput="tboxLessonNumber_PreviewTextInput"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBox x:Name="tboxJobExperience" Style="{StaticResource tboxDefault}" materialDesign:HintAssist.Hint="Опыт работы" PreviewTextInput="tboxJobExperience_PreviewTextInput"/>
+                    <xctk:DateTimePicker x:Name="dtpDateStart" FontFamily="Corsiva" FontSize="14" Foreground="#000" BorderBrush="#E5E5E5" Width="auto" PreviewTextInput="dtpDateStart_PreviewTextInput"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ComboBox x:Name="cboxDiscipline" Style="{StaticResource cboxDefault}" materialDesign:HintAssist.Hint="Дисциплина" PreviewTextInput="cboxDiscipline_PreviewTextInput"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ComboBox x:Name="cboxPost" Style="{StaticResource cboxDefault}" materialDesign:HintAssist.Hint="Должность"/>
+                    <xctk:DateTimePicker x:Name="dtpDateEnd" FontFamily="Corsiva" FontSize="14" Foreground="#000" BorderBrush="#E5E5E5" Width="auto" PreviewTextInput="dtpDateEnd_PreviewTextInput"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">

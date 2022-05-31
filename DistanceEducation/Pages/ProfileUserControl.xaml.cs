@@ -1,40 +1,42 @@
-﻿using DistanceEducation.DataBase;
+﻿using DistanceEducation.Classes;
+using DistanceEducation.DataBase;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
-using DistanceEducation.Classes;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DistanceEducation.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для AddEditEmployeeUserControl.xaml
+    /// Логика взаимодействия для ProfileUserControl.xaml
     /// </summary>
-    public partial class AddEditEmployeeUserControl : UserControl
+    public partial class ProfileUserControl : UserControl
     {
         Entities Entities = new Entities();
 
         private bool CheckEdit = false;
         private Employee EditEmployee = new Employee();
 
-        public AddEditEmployeeUserControl()
+        public ProfileUserControl()
         {
             InitializeComponent();
-            cboxDiscipline.ItemsSource = Entities.Discipline.Select(i => i.DisciplineName).ToList();
-            cboxPost.ItemsSource = Entities.Post.Select(i => i.PostName).ToList();
-
-            if (cboxDiscipline.Items != null)
-            {
-                cboxDiscipline.SelectedIndex = 0;
-            }
-
-            tblockTitle.Text = "Добавление";
         }
 
-        public AddEditEmployeeUserControl(Employee GetEmployee)
+        public ProfileUserControl(Employee GetEmployee)
         {
             InitializeComponent();
+
             cboxDiscipline.ItemsSource = Entities.Discipline.Select(i => i.DisciplineName).ToList();
             cboxPost.ItemsSource = Entities.Post.Select(i => i.PostName).ToList();
 
@@ -50,15 +52,12 @@ namespace DistanceEducation.Pages
                 cboxDiscipline.SelectedItem = Entities.Discipline.Where(i => i.DisciplineID == GetEmployee.DisciplineID).Select(i => i.DisciplineName).FirstOrDefault();
                 cboxPost.SelectedItem = Entities.Post.Where(i => i.PostID == GetEmployee.PostID).Select(i => i.PostName).FirstOrDefault();
             }
-
-            tblockTitle.Text = "Редактирование";
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-
             if (String.IsNullOrWhiteSpace(tboxSurname.Text) || String.IsNullOrWhiteSpace(tboxName.Text)
-                || cboxPost.SelectedItem == null || cboxDiscipline.SelectedItem == null)
+                || cboxDiscipline.SelectedItem == null || cboxPost.SelectedItem == null)
             {
                 MessageBox.Show("Некоторые поля были не заполнены.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -92,42 +91,6 @@ namespace DistanceEducation.Pages
                     }
                 }
             }
-            if (!CheckEdit)
-            {
-                if (MessageBox.Show("Вы действительно хотите добавить запись?", "Добавление", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                {
-                    Employee NewEmployee = new Employee
-                    {
-                        Surname = tboxSurname.Text,
-                        Name = tboxName.Text,
-                        FatherName = tboxFatherName.Text,
-                        JobExperience = Convert.ToByte(tboxJobExperience.Text),
-                        DisciplineID = Entities.Discipline.Where(i => i.DisciplineName == cboxDiscipline.SelectedItem.ToString()).Select(i => i.DisciplineID).FirstOrDefault(),
-                        PostID = Entities.Post.Where(i => i.PostName == cboxPost.SelectedItem.ToString()).Select(i => i.PostID).FirstOrDefault()
-                    };
-
-                    if (Convert.ToByte(tboxJobExperience.Text) > 255 || Convert.ToByte(tboxJobExperience.Text) < 0)
-                    {
-                        MessageBox.Show("Опыт работы не может быть больше 255 лет или меньше 0.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    else if (tboxSurname.Text.Length > 40 | tboxName.Text.Length > 40 || tboxFatherName.Text.Length > 40 || cboxDiscipline.Text.Length > 120)
-                    {
-                        MessageBox.Show("Вы вышли за диапазон допустимой длины строки.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    else
-                    {
-                        Entities.Employee.Add(NewEmployee);
-                        Entities.SaveChanges();
-                        MessageBox.Show("Запись успешно добавлена.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-            }
-        }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            grdAddEditEmployee.Children.Clear();
-            grdAddEditEmployee.Children.Add(new EmployeesUserControl());
         }
 
         private void tboxSurname_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -153,6 +116,21 @@ namespace DistanceEducation.Pages
         private void cboxDiscipline_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             ValidatorExtensions.PreviewTextInput_ControlNumbers(sender, e);
+        }
+
+        private void cboxPost_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            ValidatorExtensions.PreviewTextInput_ControlNumbers(sender, e);
+        }
+
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            var timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.IsEnabled = true;
+            timer.Tick += (o, t) => { tboxCurrentDateTime.Text = DateTime.Now.ToString(); };
+            timer.Start();
         }
     }
 }
