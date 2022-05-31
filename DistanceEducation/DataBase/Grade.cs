@@ -24,11 +24,12 @@ namespace DistanceEducation.DataBase
         public int GradeID { get; set; }
         public string GradeName { get; set; }
         public byte PupilCount { get; set; }
-        public string Profile { get; set; }
+        public int GradeProfileID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pupil> Pupil { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Timetable> Timetable { get; set; }
+        public virtual GradeProfile GradeProfile { get; set; }
     }
 }

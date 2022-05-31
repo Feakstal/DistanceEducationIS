@@ -25,11 +25,9 @@ namespace DistanceEducation.DataBase
         public string Name { get; set; }
         public string FatherName { get; set; }
         public int GradeID { get; set; }
-        public string Characteristic { get; set; }
-        public int PupilStatusID { get; set; }
+        public string PupilStatusDesc { get; set; }
     
         public virtual Grade Grade { get; set; }
-        public virtual PupilStatus PupilStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Report> Report { get; set; }
     }

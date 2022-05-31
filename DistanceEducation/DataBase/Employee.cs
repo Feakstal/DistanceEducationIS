@@ -18,13 +18,14 @@ namespace DistanceEducation.DataBase
         public Employee()
         {
             this.Report = new HashSet<Report>();
+            this.User = new HashSet<User>();
         }
     
         public int EmployeeID { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
         public string FatherName { get; set; }
-        public byte JobExperience { get; set; }
+        public Nullable<byte> JobExperience { get; set; }
         public Nullable<int> DisciplineID { get; set; }
         public int PostID { get; set; }
     
@@ -32,5 +33,7 @@ namespace DistanceEducation.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Report> Report { get; set; }
         public virtual Post Post { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> User { get; set; }
     }
 }

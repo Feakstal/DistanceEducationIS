@@ -28,12 +28,13 @@ namespace DistanceEducation.DataBase
         public virtual DbSet<Discipline> Discipline { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Grade> Grade { get; set; }
+        public virtual DbSet<GradeProfile> GradeProfile { get; set; }
+        public virtual DbSet<IsAttend> IsAttend { get; set; }
         public virtual DbSet<Lesson> Lesson { get; set; }
         public virtual DbSet<LessonTopic> LessonTopic { get; set; }
         public virtual DbSet<LessonType> LessonType { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<Pupil> Pupil { get; set; }
-        public virtual DbSet<PupilStatus> PupilStatus { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
         public virtual DbSet<Report> Report { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }

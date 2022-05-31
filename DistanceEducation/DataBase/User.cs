@@ -18,7 +18,9 @@ namespace DistanceEducation.DataBase
         public string Login { get; set; }
         public string Password { get; set; }
         public int PostID { get; set; }
+        public Nullable<int> EmployeeID { get; set; }
     
+        public virtual Employee Employee { get; set; }
         public virtual Post Post { get; set; }
     }
 }

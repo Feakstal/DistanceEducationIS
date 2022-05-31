@@ -11,7 +11,7 @@
           </Key>
           <Property Name="DisciplineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DisciplineName" Type="nvarchar" MaxLength="120" Nullable="false" />
-          <Property Name="HoursCount" Type="smallint" Nullable="false" />
+          <Property Name="HoursCount" Type="smallint" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -21,7 +21,7 @@
           <Property Name="Surname" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="FatherName" Type="nvarchar" MaxLength="40" />
-          <Property Name="JobExperience" Type="tinyint" Nullable="false" />
+          <Property Name="JobExperience" Type="tinyint" />
           <Property Name="DisciplineID" Type="int" />
           <Property Name="PostID" Type="int" Nullable="false" />
         </EntityType>
@@ -32,7 +32,21 @@
           <Property Name="GradeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GradeName" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="PupilCount" Type="tinyint" Nullable="false" />
-          <Property Name="Profile" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GradeProfileID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GradeProfile">
+          <Key>
+            <PropertyRef Name="GradeProfileID" />
+          </Key>
+          <Property Name="GradeProfileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GradeProfileName" Type="nvarchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IsAttend">
+          <Key>
+            <PropertyRef Name="IsAttendID" />
+          </Key>
+          <Property Name="IsAttendID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsAttendName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -40,6 +54,7 @@
           </Key>
           <Property Name="LessonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LessonName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DisciplineID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LessonTopic">
           <Key>
@@ -47,7 +62,6 @@
           </Key>
           <Property Name="LessonTopicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LessonTopicName" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="HoursCount" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="LessonType">
           <Key>
@@ -72,22 +86,14 @@
           <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="FatherName" Type="nvarchar" MaxLength="40" />
           <Property Name="GradeID" Type="int" Nullable="false" />
-          <Property Name="Characteristic" Type="nvarchar(max)" />
-          <Property Name="PupilStatusID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PupilStatus">
-          <Key>
-            <PropertyRef Name="PupilStatusID" />
-          </Key>
-          <Property Name="PupilStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PupilStatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PupilStatusDesc" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
             <PropertyRef Name="RatingID" />
           </Key>
           <Property Name="RatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RatingNumber" Type="tinyint" Nullable="false" />
+          <Property Name="RatingNumber" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Report">
           <Key>
@@ -100,7 +106,7 @@
           <Property Name="TimetableID" Type="int" Nullable="false" />
           <Property Name="LessonTopicID" Type="int" Nullable="false" />
           <Property Name="LessonTypeID" Type="int" Nullable="false" />
-          <Property Name="IsAttend" Type="bit" Nullable="false" />
+          <Property Name="IsAttendID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -120,7 +126,8 @@
           <Property Name="GradeID" Type="int" Nullable="false" />
           <Property Name="LessonID" Type="int" Nullable="false" />
           <Property Name="LessonNumber" Type="tinyint" Nullable="false" />
-          <Property Name="DateToStudy" Type="datetime" Nullable="false" />
+          <Property Name="DateStart" Type="datetime" Nullable="false" />
+          <Property Name="DateEnd" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -130,6 +137,7 @@
           <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="PostID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
         </EntityType>
         <Association Name="FK__Employee__Discipl__4BAC3F29">
           <End Role="Discipline" Type="Self.Discipline" Multiplicity="0..1" />
@@ -152,18 +160,6 @@
             </Principal>
             <Dependent Role="Pupil">
               <PropertyRef Name="GradeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Pupil__PupilStat__48CFD27E">
-          <End Role="PupilStatus" Type="Self.PupilStatus" Multiplicity="1" />
-          <End Role="Pupil" Type="Self.Pupil" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PupilStatus">
-              <PropertyRef Name="PupilStatusID" />
-            </Principal>
-            <Dependent Role="Pupil">
-              <PropertyRef Name="PupilStatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -263,6 +259,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Grade_GradeProfile">
+          <End Role="GradeProfile" Type="Self.GradeProfile" Multiplicity="1" />
+          <End Role="Grade" Type="Self.Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GradeProfile">
+              <PropertyRef Name="GradeProfileID" />
+            </Principal>
+            <Dependent Role="Grade">
+              <PropertyRef Name="GradeProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Discipline">
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discipline">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="DisciplineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_IsAttend">
+          <End Role="IsAttend" Type="Self.IsAttend" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IsAttend">
+              <PropertyRef Name="IsAttendID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="IsAttendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Report_Pupil">
           <End Role="Pupil" Type="Self.Pupil" Multiplicity="1" />
           <End Role="Report" Type="Self.Report" Multiplicity="*" />
@@ -272,6 +304,18 @@
             </Principal>
             <Dependent Role="Report">
               <PropertyRef Name="PupilID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="EmployeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -291,12 +335,13 @@
           <EntitySet Name="Discipline" EntityType="Self.Discipline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GradeProfile" EntityType="Self.GradeProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IsAttend" EntityType="Self.IsAttend" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonTopic" EntityType="Self.LessonTopic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonType" EntityType="Self.LessonType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pupil" EntityType="Self.Pupil" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PupilStatus" EntityType="Self.PupilStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -308,10 +353,6 @@
           </AssociationSet>
           <AssociationSet Name="FK__Pupil__GradeID__47DBAE45" Association="Self.FK__Pupil__GradeID__47DBAE45">
             <End Role="Grade" EntitySet="Grade" />
-            <End Role="Pupil" EntitySet="Pupil" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pupil__PupilStat__48CFD27E" Association="Self.FK__Pupil__PupilStat__48CFD27E">
-            <End Role="PupilStatus" EntitySet="PupilStatus" />
             <End Role="Pupil" EntitySet="Pupil" />
           </AssociationSet>
           <AssociationSet Name="FK__Report__EmployeeI__4F7CD00D" Association="Self.FK__Report__EmployeeI__4F7CD00D">
@@ -346,9 +387,25 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_Grade_GradeProfile" Association="Self.FK_Grade_GradeProfile">
+            <End Role="GradeProfile" EntitySet="GradeProfile" />
+            <End Role="Grade" EntitySet="Grade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Discipline" Association="Self.FK_Lesson_Discipline">
+            <End Role="Discipline" EntitySet="Discipline" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_IsAttend" Association="Self.FK_Report_IsAttend">
+            <End Role="IsAttend" EntitySet="IsAttend" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
           <AssociationSet Name="FK_Report_Pupil" Association="Self.FK_Report_Pupil">
             <End Role="Pupil" EntitySet="Pupil" />
             <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Employee" Association="Self.FK_User_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Post" Association="Self.FK_User_Post">
             <End Role="Post" EntitySet="Post" />
@@ -366,8 +423,9 @@
           </Key>
           <Property Name="DisciplineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DisciplineName" Type="String" MaxLength="120" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HoursCount" Type="Int16" Nullable="false" />
+          <Property Name="HoursCount" Type="Int16" />
           <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__Discipl__4BAC3F29" FromRole="Discipline" ToRole="Employee" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK_Lesson_Discipline" FromRole="Discipline" ToRole="Lesson" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -377,12 +435,13 @@
           <Property Name="Surname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FatherName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="JobExperience" Type="Byte" Nullable="false" />
+          <Property Name="JobExperience" Type="Byte" />
           <Property Name="DisciplineID" Type="Int32" />
           <Property Name="PostID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Discipline" Relationship="Self.FK__Employee__Discipl__4BAC3F29" FromRole="Employee" ToRole="Discipline" />
           <NavigationProperty Name="Report" Relationship="Self.FK__Report__EmployeeI__4F7CD00D" FromRole="Employee" ToRole="Report" />
           <NavigationProperty Name="Post" Relationship="Self.FK_Employee_Post" FromRole="Employee" ToRole="Post" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Employee" FromRole="Employee" ToRole="User" />
         </EntityType>
         <EntityType Name="Grade">
           <Key>
@@ -391,9 +450,26 @@
           <Property Name="GradeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GradeName" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PupilCount" Type="Byte" Nullable="false" />
-          <Property Name="Profile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GradeProfileID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Pupil" Relationship="Self.FK__Pupil__GradeID__47DBAE45" FromRole="Grade" ToRole="Pupil" />
           <NavigationProperty Name="Timetable" Relationship="Self.FK__Timetable__Grade__440B1D61" FromRole="Grade" ToRole="Timetable" />
+          <NavigationProperty Name="GradeProfile" Relationship="Self.FK_Grade_GradeProfile" FromRole="Grade" ToRole="GradeProfile" />
+        </EntityType>
+        <EntityType Name="GradeProfile">
+          <Key>
+            <PropertyRef Name="GradeProfileID" />
+          </Key>
+          <Property Name="GradeProfileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GradeProfileName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Grade" Relationship="Self.FK_Grade_GradeProfile" FromRole="GradeProfile" ToRole="Grade" />
+        </EntityType>
+        <EntityType Name="IsAttend">
+          <Key>
+            <PropertyRef Name="IsAttendID" />
+          </Key>
+          <Property Name="IsAttendID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsAttendName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="Self.FK_Report_IsAttend" FromRole="IsAttend" ToRole="Report" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -401,6 +477,8 @@
           </Key>
           <Property Name="LessonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LessonName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisciplineID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK_Lesson_Discipline" FromRole="Lesson" ToRole="Discipline" />
           <NavigationProperty Name="Timetable" Relationship="Self.FK__Timetable__Lesso__44FF419A" FromRole="Lesson" ToRole="Timetable" />
         </EntityType>
         <EntityType Name="LessonTopic">
@@ -409,7 +487,6 @@
           </Key>
           <Property Name="LessonTopicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LessonTopicName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HoursCount" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Report" Relationship="Self.FK__Report__LessonTo__5165187F" FromRole="LessonTopic" ToRole="Report" />
         </EntityType>
         <EntityType Name="LessonType">
@@ -438,26 +515,16 @@
           <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FatherName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="GradeID" Type="Int32" Nullable="false" />
-          <Property Name="Characteristic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PupilStatusID" Type="Int32" Nullable="false" />
+          <Property Name="PupilStatusDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Grade" Relationship="Self.FK__Pupil__GradeID__47DBAE45" FromRole="Pupil" ToRole="Grade" />
-          <NavigationProperty Name="PupilStatus" Relationship="Self.FK__Pupil__PupilStat__48CFD27E" FromRole="Pupil" ToRole="PupilStatus" />
           <NavigationProperty Name="Report" Relationship="Self.FK_Report_Pupil" FromRole="Pupil" ToRole="Report" />
-        </EntityType>
-        <EntityType Name="PupilStatus">
-          <Key>
-            <PropertyRef Name="PupilStatusID" />
-          </Key>
-          <Property Name="PupilStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PupilStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Pupil" Relationship="Self.FK__Pupil__PupilStat__48CFD27E" FromRole="PupilStatus" ToRole="Pupil" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
             <PropertyRef Name="RatingID" />
           </Key>
           <Property Name="RatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RatingNumber" Type="Byte" Nullable="false" />
+          <Property Name="RatingNumber" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Report" Relationship="Self.FK__Report__RatingID__4E88ABD4" FromRole="Rating" ToRole="Report" />
         </EntityType>
         <EntityType Name="Report">
@@ -471,8 +538,9 @@
           <Property Name="TimetableID" Type="Int32" Nullable="false" />
           <Property Name="LessonTopicID" Type="Int32" Nullable="false" />
           <Property Name="LessonTypeID" Type="Int32" Nullable="false" />
-          <Property Name="IsAttend" Type="Boolean" Nullable="false" />
+          <Property Name="IsAttendID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK__Report__EmployeeI__4F7CD00D" FromRole="Report" ToRole="Employee" />
+          <NavigationProperty Name="IsAttend" Relationship="Self.FK_Report_IsAttend" FromRole="Report" ToRole="IsAttend" />
           <NavigationProperty Name="LessonTopic" Relationship="Self.FK__Report__LessonTo__5165187F" FromRole="Report" ToRole="LessonTopic" />
           <NavigationProperty Name="LessonType" Relationship="Self.FK__Report__LessonTy__52593CB8" FromRole="Report" ToRole="LessonType" />
           <NavigationProperty Name="Pupil" Relationship="Self.FK_Report_Pupil" FromRole="Report" ToRole="Pupil" />
@@ -497,7 +565,8 @@
           <Property Name="GradeID" Type="Int32" Nullable="false" />
           <Property Name="LessonID" Type="Int32" Nullable="false" />
           <Property Name="LessonNumber" Type="Byte" Nullable="false" />
-          <Property Name="DateToStudy" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateEnd" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Grade" Relationship="Self.FK__Timetable__Grade__440B1D61" FromRole="Timetable" ToRole="Grade" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK__Timetable__Lesso__44FF419A" FromRole="Timetable" ToRole="Lesson" />
           <NavigationProperty Name="Report" Relationship="Self.FK__Report__Timetabl__5070F446" FromRole="Timetable" ToRole="Report" />
@@ -510,6 +579,8 @@
           <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PostID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_User_Employee" FromRole="User" ToRole="Employee" />
           <NavigationProperty Name="Post" Relationship="Self.FK_User_Post" FromRole="User" ToRole="Post" />
         </EntityType>
         <Association Name="FK__Employee__Discipl__4BAC3F29">
@@ -520,6 +591,18 @@
               <PropertyRef Name="DisciplineID" />
             </Principal>
             <Dependent Role="Employee">
+              <PropertyRef Name="DisciplineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Discipline">
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discipline">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Lesson">
               <PropertyRef Name="DisciplineID" />
             </Dependent>
           </ReferentialConstraint>
@@ -548,6 +631,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Pupil__GradeID__47DBAE45">
           <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
           <End Role="Pupil" Type="Self.Pupil" Multiplicity="*" />
@@ -569,6 +664,30 @@
             </Principal>
             <Dependent Role="Timetable">
               <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grade_GradeProfile">
+          <End Role="GradeProfile" Type="Self.GradeProfile" Multiplicity="1" />
+          <End Role="Grade" Type="Self.Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GradeProfile">
+              <PropertyRef Name="GradeProfileID" />
+            </Principal>
+            <Dependent Role="Grade">
+              <PropertyRef Name="GradeProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_IsAttend">
+          <End Role="IsAttend" Type="Self.IsAttend" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IsAttend">
+              <PropertyRef Name="IsAttendID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="IsAttendID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -617,18 +736,6 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="PostID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Pupil__PupilStat__48CFD27E">
-          <End Role="PupilStatus" Type="Self.PupilStatus" Multiplicity="1" />
-          <End Role="Pupil" Type="Self.Pupil" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PupilStatus">
-              <PropertyRef Name="PupilStatusID" />
-            </Principal>
-            <Dependent Role="Pupil">
-              <PropertyRef Name="PupilStatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -672,12 +779,13 @@
           <EntitySet Name="Discipline" EntityType="Self.Discipline" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="Grade" EntityType="Self.Grade" />
+          <EntitySet Name="GradeProfile" EntityType="Self.GradeProfile" />
+          <EntitySet Name="IsAttend" EntityType="Self.IsAttend" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" />
           <EntitySet Name="LessonTopic" EntityType="Self.LessonTopic" />
           <EntitySet Name="LessonType" EntityType="Self.LessonType" />
           <EntitySet Name="Post" EntityType="Self.Post" />
           <EntitySet Name="Pupil" EntityType="Self.Pupil" />
-          <EntitySet Name="PupilStatus" EntityType="Self.PupilStatus" />
           <EntitySet Name="Rating" EntityType="Self.Rating" />
           <EntitySet Name="Report" EntityType="Self.Report" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -687,6 +795,10 @@
             <End Role="Discipline" EntitySet="Discipline" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Discipline" Association="Self.FK_Lesson_Discipline">
+            <End Role="Discipline" EntitySet="Discipline" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
           <AssociationSet Name="FK__Report__EmployeeI__4F7CD00D" Association="Self.FK__Report__EmployeeI__4F7CD00D">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Report" EntitySet="Report" />
@@ -695,6 +807,10 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_Employee" Association="Self.FK_User_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
           <AssociationSet Name="FK__Pupil__GradeID__47DBAE45" Association="Self.FK__Pupil__GradeID__47DBAE45">
             <End Role="Grade" EntitySet="Grade" />
             <End Role="Pupil" EntitySet="Pupil" />
@@ -702,6 +818,14 @@
           <AssociationSet Name="FK__Timetable__Grade__440B1D61" Association="Self.FK__Timetable__Grade__440B1D61">
             <End Role="Grade" EntitySet="Grade" />
             <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grade_GradeProfile" Association="Self.FK_Grade_GradeProfile">
+            <End Role="GradeProfile" EntitySet="GradeProfile" />
+            <End Role="Grade" EntitySet="Grade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_IsAttend" Association="Self.FK_Report_IsAttend">
+            <End Role="IsAttend" EntitySet="IsAttend" />
+            <End Role="Report" EntitySet="Report" />
           </AssociationSet>
           <AssociationSet Name="FK__Timetable__Lesso__44FF419A" Association="Self.FK__Timetable__Lesso__44FF419A">
             <End Role="Lesson" EntitySet="Lesson" />
@@ -718,10 +842,6 @@
           <AssociationSet Name="FK_User_Post" Association="Self.FK_User_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pupil__PupilStat__48CFD27E" Association="Self.FK__Pupil__PupilStat__48CFD27E">
-            <End Role="PupilStatus" EntitySet="PupilStatus" />
-            <End Role="Pupil" EntitySet="Pupil" />
           </AssociationSet>
           <AssociationSet Name="FK_Report_Pupil" Association="Self.FK_Report_Pupil">
             <End Role="Pupil" EntitySet="Pupil" />
@@ -770,7 +890,23 @@
                 <ScalarProperty Name="GradeID" ColumnName="GradeID" />
                 <ScalarProperty Name="GradeName" ColumnName="GradeName" />
                 <ScalarProperty Name="PupilCount" ColumnName="PupilCount" />
-                <ScalarProperty Name="Profile" ColumnName="Profile" />
+                <ScalarProperty Name="GradeProfileID" ColumnName="GradeProfileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GradeProfile">
+            <EntityTypeMapping TypeName="Model.GradeProfile">
+              <MappingFragment StoreEntitySet="GradeProfile">
+                <ScalarProperty Name="GradeProfileID" ColumnName="GradeProfileID" />
+                <ScalarProperty Name="GradeProfileName" ColumnName="GradeProfileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IsAttend">
+            <EntityTypeMapping TypeName="Model.IsAttend">
+              <MappingFragment StoreEntitySet="IsAttend">
+                <ScalarProperty Name="IsAttendID" ColumnName="IsAttendID" />
+                <ScalarProperty Name="IsAttendName" ColumnName="IsAttendName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -779,6 +915,7 @@
               <MappingFragment StoreEntitySet="Lesson">
                 <ScalarProperty Name="LessonID" ColumnName="LessonID" />
                 <ScalarProperty Name="LessonName" ColumnName="LessonName" />
+                <ScalarProperty Name="DisciplineID" ColumnName="DisciplineID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -787,7 +924,6 @@
               <MappingFragment StoreEntitySet="LessonTopic">
                 <ScalarProperty Name="LessonTopicID" ColumnName="LessonTopicID" />
                 <ScalarProperty Name="LessonTopicName" ColumnName="LessonTopicName" />
-                <ScalarProperty Name="HoursCount" ColumnName="HoursCount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -815,16 +951,7 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="FatherName" ColumnName="FatherName" />
                 <ScalarProperty Name="GradeID" ColumnName="GradeID" />
-                <ScalarProperty Name="Characteristic" ColumnName="Characteristic" />
-                <ScalarProperty Name="PupilStatusID" ColumnName="PupilStatusID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PupilStatus">
-            <EntityTypeMapping TypeName="Model.PupilStatus">
-              <MappingFragment StoreEntitySet="PupilStatus">
-                <ScalarProperty Name="PupilStatusID" ColumnName="PupilStatusID" />
-                <ScalarProperty Name="PupilStatusName" ColumnName="PupilStatusName" />
+                <ScalarProperty Name="PupilStatusDesc" ColumnName="PupilStatusDesc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -846,7 +973,7 @@
                 <ScalarProperty Name="TimetableID" ColumnName="TimetableID" />
                 <ScalarProperty Name="LessonTopicID" ColumnName="LessonTopicID" />
                 <ScalarProperty Name="LessonTypeID" ColumnName="LessonTypeID" />
-                <ScalarProperty Name="IsAttend" ColumnName="IsAttend" />
+                <ScalarProperty Name="IsAttendID" ColumnName="IsAttendID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -868,7 +995,8 @@
                 <ScalarProperty Name="GradeID" ColumnName="GradeID" />
                 <ScalarProperty Name="LessonID" ColumnName="LessonID" />
                 <ScalarProperty Name="LessonNumber" ColumnName="LessonNumber" />
-                <ScalarProperty Name="DateToStudy" ColumnName="DateToStudy" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -879,6 +1007,7 @@
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

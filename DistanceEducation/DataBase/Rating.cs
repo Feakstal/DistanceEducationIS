@@ -21,7 +21,7 @@ namespace DistanceEducation.DataBase
         }
     
         public int RatingID { get; set; }
-        public byte RatingNumber { get; set; }
+        public short RatingNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Report> Report { get; set; }

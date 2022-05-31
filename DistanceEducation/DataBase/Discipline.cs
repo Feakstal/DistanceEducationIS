@@ -18,13 +18,16 @@ namespace DistanceEducation.DataBase
         public Discipline()
         {
             this.Employee = new HashSet<Employee>();
+            this.Lesson = new HashSet<Lesson>();
         }
     
         public int DisciplineID { get; set; }
         public string DisciplineName { get; set; }
-        public short HoursCount { get; set; }
+        public Nullable<short> HoursCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lesson> Lesson { get; set; }
     }
 }

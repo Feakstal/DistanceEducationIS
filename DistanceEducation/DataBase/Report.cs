@@ -21,9 +21,10 @@ namespace DistanceEducation.DataBase
         public int TimetableID { get; set; }
         public int LessonTopicID { get; set; }
         public int LessonTypeID { get; set; }
-        public bool IsAttend { get; set; }
+        public int IsAttendID { get; set; }
     
         public virtual Employee Employee { get; set; }
+        public virtual IsAttend IsAttend { get; set; }
         public virtual LessonTopic LessonTopic { get; set; }
         public virtual LessonType LessonType { get; set; }
         public virtual Pupil Pupil { get; set; }

@@ -22,7 +22,6 @@ namespace DistanceEducation.DataBase
     
         public int LessonTopicID { get; set; }
         public string LessonTopicName { get; set; }
-        public short HoursCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Report> Report { get; set; }

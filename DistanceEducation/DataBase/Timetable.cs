@@ -24,7 +24,8 @@ namespace DistanceEducation.DataBase
         public int GradeID { get; set; }
         public int LessonID { get; set; }
         public byte LessonNumber { get; set; }
-        public System.DateTime DateToStudy { get; set; }
+        public System.DateTime DateStart { get; set; }
+        public System.DateTime DateEnd { get; set; }
     
         public virtual Grade Grade { get; set; }
         public virtual Lesson Lesson { get; set; }
