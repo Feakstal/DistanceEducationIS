@@ -87,7 +87,7 @@ CREATE TABLE [dbo].[User](
 )
 
 INSERT INTO Post (PostName)
-VALUES ('Администратор')
+VALUES ('Администратор'), ('Директор'), ('Учитель')
 
 INSERT INTO Discipline (DisciplineName, HoursCount)
 VALUES ('Без категории', NULL)
